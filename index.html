@@ -20,34 +20,36 @@
         </div>
         <nav>
             <ul>
-                <li>Início</li>
-                <li>Filmes</li>
-                <li>Comentários</li>
+                <li><a href="#init">Início</a></li>
+                <li><a href="#search">Pesquisar</a></li>
+                <li><a href="#favorites">Favoritos</a></li>
+                <li><a href="#comments">Comentários</a></li>
             </ul>
+            <image src="assets/user.svg" class="user-image" alt="ícone de usuário"/>
         </nav>
     </header>
     <main>
-        <section>
+        <section id="init">
             <div class="title-section">
                 <image src="assets/popcorn.svg" alt="ícone de pipoca" />
                 <h1>Filmes em destaque</h1>
             </div>
             <div class="banner-movies">
-                <div>
+                <div class="movie">
+                    <img src="assets/Movie.png" alt="banner do filme" />
+                    <div href="#" class="onmouse">Ver mais</div>
+                </div>
+                <div class="movie">
                     <img src="assets/Movie.png" alt="banner do filme" />
                     <div class="onmouse">Ver mais</div>
                 </div>
-                <div>
-                    <img src="assets/Movie.png" alt="banner do filme" />
-                    <div class="onmouse">Ver mais</div>
-                </div>
-                <div>
+                <div class="movie">
                     <img src="assets/Movie.png" alt="banner do filme" />
                     <div class="onmouse">Ver mais</div>
                 </div>
             </div>
         </section>
-        <section class="background-color-blue">
+        <section id="search" class="background-color-blue">
             <div class="title-section">
                 <image src="assets/ticket.svg" alt="ícone de pipoca" />
                 <h1>Pesquise um filme</h1>
@@ -58,18 +60,36 @@
                 <img src="assets/Movie.png" alt="banner do filme" />
             </div>
         </section>
-        <section class="background-color-blue">
+        <section id="favorites" class="background-color-blue">
             <div class="title-section">
                 <image src="assets/listFavorites.svg" alt="ícone de pipoca" />
                 <h1>Meus Favoritados</h1>
             </div>
             <div class="banner-movies">
-                <img src="assets/Movie.png" alt="banner do filme" />
-                <img src="assets/Movie.png" alt="banner do filme" />
-                <img src="assets/Movie.png" alt="banner do filme" />
+                <div class="card">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+                    <div class="card-content">
+                        <h3>The Matrix <span>(1999)</span></h3>
+                        <p>Sci-fi, action</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+                    <div class="card-content">
+                        <h3>The Matrix <span>(1999)</span></h3>
+                        <p>Sci-fi, action</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+                    <div class="card-content">
+                        <h3>The Matrix <span>(1999)</span></h3>
+                        <p>Sci-fi, action</p>
+                    </div>
+                </div>
             </div>
         </section>
-        <section>
+        <section id="comments">
             <div class="title-section">
                 <image src="assets/comment.svg" alt="ícone de pipoca" />
                 <h1>Meus comentários</h1>
@@ -83,7 +103,7 @@
     </main>
 
     <footer>
-        <h3>@ Todos os direitos reservados - Lucas Batista - 2024</h3>
+        <p>@ Todos os direitos reservados - Lucas Batista - 2024</p>
     </footer>
     <script src="main.js"></script>
 </body>

@@ -9,7 +9,6 @@ body {
 }
 
 header {
-    height: 88px;
     background-color: #003049;
 
     display: flex;
@@ -22,23 +21,40 @@ header {
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+nav {
+    display: flex;
+    gap: 16px;
+    align-items: center;
 }
 
 ul {
     display: flex;
-    gap: 20px;
+    gap: 16px;
 }
 
-ul li {
+li {
     list-style-type: none;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
 }
 
-ul li:hover {
-    opacity: 0.8;
+a {
+    display: inline-block;
+
+    color: #EAE2B7;
+    text-decoration: none;
 }
 
 section {
@@ -46,6 +62,10 @@ section {
     flex-direction: column;
     padding: 40px;
     gap: 40px;
+}
+
+span { 
+    font-size: 12px;
 }
 
 footer {
@@ -63,7 +83,17 @@ footer {
     gap: 4px;
 }
 
+.background-color-blue {
+    background-color: #003049;
+}
+
 /* Class */
+nav .user-image {
+    background-color: #EAE2B7;
+    padding: 8px;
+    border-radius: 100%;
+}
+
 .title-section {
     display: flex;
     justify-content: center;
@@ -72,31 +102,61 @@ footer {
     color: #F77F00;
 }
 
+ul li:hover {
+    opacity: 0.8;
+}
+
 .banner-movies {
     display: flex;
     justify-content: center;
     gap: 40px;
 }
 
-.banner-movies img {
+.banner-movies .movie {
+    position: relative;
+}
+
+.banner-movies .movie img {
     height: 340px;
     width: 210px;
 }
 
-.background-color-blue {
-    background-color: #003049;
-}
-
-.banner-movies div .onmouse {
-    /* Same styles as before... */
+.banner-movies .movie .onmouse {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
-    padding: 10px;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
-  }
+}
+
+.banner-movies .card {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    
+    background-color: #000;
+    color: #EAE2B7;
+}
+
+.banner-movies .card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+}
+
+.banner-movies .card .card-content {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
