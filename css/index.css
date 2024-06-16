@@ -51,6 +51,7 @@ footer {
 
 .background-color-blue {
     background-color: #003049;
+    color: #EAE2B7;
 }
 
 /* Class */
@@ -70,8 +71,9 @@ footer {
 
 .banner-movies {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 20px 40px;
 }
 
 .movie {
@@ -168,6 +170,8 @@ footer {
     gap: 16px;
     padding: 16px;
     border-radius: 12px;
+
+    width: 300px;
     
     background-color: #000;
     color: #EAE2B7;
@@ -189,7 +193,7 @@ footer {
 .card-about-favorite {
     position: absolute;
 
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     
