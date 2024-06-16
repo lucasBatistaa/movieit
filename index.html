@@ -6,98 +6,189 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="main.js"></script>
     
     <title>Movies</title>
 </head>
-<body>
+<body onload="loadMovies()">
     <header>
         <div id="logo">
             <image src="assets/logo.svg" alt="logo da empresa MovieIt"/>
+            
             <h1>MovieIt</h1>
         </div>
+
         <nav>
             <ul>
                 <li><a href="#init">Início</a></li>
                 <li><a href="#search">Pesquisar</a></li>
                 <li><a href="#favorites">Favoritos</a></li>
                 <li><a href="#comments">Comentários</a></li>
+                <li><a href="login.html"><image src="assets/user.svg" class="user-image" alt="ícone de usuário"/></a></li>
             </ul>
-            <image src="assets/user.svg" class="user-image" alt="ícone de usuário"/>
         </nav>
     </header>
-    <main>
+    <main >
         <section id="init">
             <div class="title-section">
                 <image src="assets/popcorn.svg" alt="ícone de pipoca" />
                 <h1>Filmes em destaque</h1>
             </div>
-            <div class="banner-movies">
-                <div class="movie">
-                    <img src="assets/Movie.png" alt="banner do filme" />
-                    <div href="#" class="onmouse">Ver mais</div>
-                </div>
-                <div class="movie">
-                    <img src="assets/Movie.png" alt="banner do filme" />
-                    <div class="onmouse">Ver mais</div>
-                </div>
-                <div class="movie">
-                    <img src="assets/Movie.png" alt="banner do filme" />
-                    <div class="onmouse">Ver mais</div>
-                </div>
+            <div id="highlights" class="banner-movies">
             </div>
         </section>
+
         <section id="search" class="background-color-blue">
             <div class="title-section">
                 <image src="assets/ticket.svg" alt="ícone de pipoca" />
                 <h1>Pesquise um filme</h1>
             </div>
             <div class="banner-movies">
-                <img src="assets/Movie.png" alt="banner do filme" />
-                <img src="assets/Movie.png" alt="banner do filme" />
-                <img src="assets/Movie.png" alt="banner do filme" />
+    
             </div>
         </section>
+
         <section id="favorites" class="background-color-blue">
             <div class="title-section">
                 <image src="assets/listFavorites.svg" alt="ícone de pipoca" />
-                <h1>Meus Favoritados</h1>
+                
+                <h1>Meus Favoritos</h1>
             </div>
+
             <div class="banner-movies">
-                <div class="card">
+                <div class="card-favorite">
                     <image src="assets/Movie.png" alt="banner do filme" />
-                    <div class="card-content">
-                        <h3>The Matrix <span>(1999)</span></h3>
+                    
+                    <div class="card-favorite-content">
+                        <h2>The Matrix <span>(1999)</span></h2>
+                        
                         <p>Sci-fi, action</p>
                     </div>
-                </div>
-                <div class="card">
-                    <image src="assets/Movie.png" alt="banner do filme" />
-                    <div class="card-content">
-                        <h3>The Matrix <span>(1999)</span></h3>
-                        <p>Sci-fi, action</p>
+
+                    <div class="card-about-favorite">
+                        <p>Ver mais</p>
                     </div>
                 </div>
-                <div class="card">
-                    <image src="assets/Movie.png" alt="banner do filme" />
-                    <div class="card-content">
-                        <h3>The Matrix <span>(1999)</span></h3>
-                        <p>Sci-fi, action</p>
-                    </div>
-                </div>
+
             </div>
         </section>
+
         <section id="comments">
             <div class="title-section">
                 <image src="assets/comment.svg" alt="ícone de pipoca" />
                 <h1>Meus comentários</h1>
             </div>
-            <div class="banner-movies">
-                <img src="assets/Movie.png" alt="banner do filme" />
-                <img src="assets/Movie.png" alt="banner do filme" />
-                <img src="assets/Movie.png" alt="banner do filme" />
+            
+            <div class="list-comments">
+                <div class="comment">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <h2>The matrix <span>(1999)</span></h2>
+
+                            <div class="comment-buttons-actions">
+                                <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
+
+                                <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
+                            </div>
+                        </div>
+
+                        <div class="comment-avaliation">
+                            <image src="assets/star.svg" alt="Ícone de estrela das avaliações" />
+
+                            <p>8.8</p>
+                        </div>
+
+                        <p>
+                            Obra muito interessante, apresenta uma nova perspectiva acertca da IA, numa época que ainda pouco explorava essa questão, o que o torna tão contemporâneo.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <h2>The matrix <span>(1999)</span></h2>
+
+                            <div class="comment-buttons-actions">
+                                <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
+
+                                <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
+                            </div>
+                        </div>
+
+                        <div class="comment-avaliation">
+                            <image src="assets/star.svg" alt="Ícone de estrela das avaliações" />
+
+                            <p>8.8</p>
+                        </div>
+
+                        <p>
+                            Obra muito interessante, apresenta uma nova perspectiva acertca da IA, numa época que ainda pouco explorava essa questão, o que o torna tão contemporâneo.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <h2>The matrix <span>(1999)</span></h2>
+
+                            <div class="comment-buttons-actions">
+                                <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
+
+                                <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
+                            </div>
+                        </div>
+
+                        <div class="comment-avaliation">
+                            <image src="assets/star.svg" alt="Ícone de estrela das avaliações" />
+
+                            <p>8.8</p>
+                        </div>
+
+                        <p>
+                            Obra muito interessante, apresenta uma nova perspectiva acertca da IA, numa época que ainda pouco explorava essa questão, o que o torna tão contemporâneo.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <image src="assets/Movie.png" alt="banner do filme" />
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <h2>The matrix <span>(1999)</span></h2>
+
+                            <div class="comment-buttons-actions">
+                                <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
+
+                                <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
+                            </div>
+                        </div>
+
+                        <div class="comment-avaliation">
+                            <image src="assets/star.svg" alt="Ícone de estrela das avaliações" />
+
+                            <p>8.8</p>
+                        </div>
+
+                        <p>
+                            Obra muito interessante, apresenta uma nova perspectiva acertca da IA, numa época que ainda pouco explorava essa questão, o que o torna tão contemporâneo.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -105,6 +196,5 @@
     <footer>
         <p>@ Todos os direitos reservados - Lucas Batista - 2024</p>
     </footer>
-    <script src="main.js"></script>
 </body>
 </html>
