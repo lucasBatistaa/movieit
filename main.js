@@ -3,13 +3,12 @@ const API_TOKEN = 'f474434e'
 
 // Criar card do filme
 async function createCardMovie(movie) {
-    console.log(movie)
     const { Poster, Title, Type, Year, imdbID } = movie
 
     const movieElement = document.createElement('div')
                 
     movieElement.classList.add('movie')
-    movieElement.id = imdbID
+    // movieElement.id = imdbID
     
     movieElement.innerHTML = `
         <img src="${Poster}" alt="banner do filme" />
@@ -25,7 +24,7 @@ async function createCardMovie(movie) {
             </div>
         </div>
         
-        <a href="#" class="onmouse" style="display: none;">Ver mais</a>
+        <a id="${imdbID}" href="#" class="onmouse" onclick="openModal(event.target.id)">Ver mais</a>
     `
 
     const onMouseElement = movieElement.querySelector('.onmouse')
@@ -79,7 +78,6 @@ async function searchMovie() {
 
             if (data.Search) { 
                 const movies = await data.Search.slice(0, 5)
-                console.log(movies)
                 resultOfSearch.innerHTML = ''
 
                 for (const movie of movies) {
@@ -100,6 +98,56 @@ async function searchMovie() {
     }
 }
 
+// Buscar informações do filme, com  base no imdbID
+async function dataMovieWithID(idMovie) {
+    try {
+        const response = await fetch(`https://www.omdbapi.com/?i=${idMovie}&type=movie&apikey=f474434e`)
+        const data = await response.json()
+
+        return data
+    
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// Abrir Modal
+async function openModal(id) {
+    const data = await dataMovieWithID(id)
+    console.log(data)
+
+    const modal = document.getElementById("modal-movie-data")
+    
+    const poster = document.getElementById("modal-movie-poster")
+    const title = document.getElementById("modal-movie-title")
+    const year = document.getElementById("modal-movie-year")
+    const rating = document.getElementById("modal-movie-rating")
+    const duration = document.getElementById("modal-movie-duration")
+    const actors = document.getElementById("modal-movie-actors")
+    const directors = document.getElementById("modal-movie-directors")
+    const resume = document.getElementById("modal-movie-resume")
+
+    poster.src = data.Poster
+    title.innerHTML = data.Title
+    year.innerHTML = `(${(data.Year)})`
+    rating.innerHTML = data.imdbRating
+    duration.innerHTML = data.Runtime
+    actors.innerHTML = data.Actors
+    directors.innerHTML = data.Director
+    resume.innerHTML = data.Plot
+
+    modal.style.display = 'flex'
+}
+
+// Fechar Modal
+async function closeModal(id) {
+    if (id === "modal-movie-data") {
+        const modal = document.getElementById(id)
+
+        modal.style.display = 'none'
+    }
+}
+ 
 // Adicionar EventListener no botão de pesquisa
 const searchButton = document.getElementById('searchButton')
 searchButton.addEventListener('click', searchMovie)
