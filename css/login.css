@@ -34,10 +34,6 @@ input {
     padding: 12px 12px 12px 0;
 }
 
-input:focus {
-    outline: none;
-}
-
 input:placeholder {
     color: #EAE2B7;
 }

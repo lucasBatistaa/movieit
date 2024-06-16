@@ -11,8 +11,6 @@
 
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
-
-    <script src="main.js"></script>
     
     <title>Movies</title>
 </head>
@@ -34,6 +32,7 @@
             </ul>
         </nav>
     </header>
+
     <main >
         <section id="init">
             <div class="title-section">
@@ -49,7 +48,14 @@
                 <image src="assets/ticket.svg" alt="ícone de pipoca" />
                 <h1>Pesquise um filme</h1>
             </div>
-            <div class="banner-movies">
+            
+            <div class="field-search">
+                <input id="searchInput" type="text" placeholder="Pesquise por um filme...">
+
+                <image id="searchButton" src="assets/search.svg" alt="Botão de pesquisa" />
+            </div>
+            
+            <div id="resultOfSearch" class="banner-movies">
     
             </div>
         </section>
@@ -196,5 +202,7 @@
     <footer>
         <p>@ Todos os direitos reservados - Lucas Batista - 2024</p>
     </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>

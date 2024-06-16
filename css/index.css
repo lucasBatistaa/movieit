@@ -105,11 +105,10 @@ footer {
     opacity: 50%;
 }
 
-.movie-avaliation {
-    display: flex;
-    gap: 4px;
-
-    color: #D7C04B;
+.movie-informations img {
+    height: 16px;
+    width: 16px;
+    color: red;
 }
 
 .banner-movies .movie .onmouse {
@@ -128,6 +127,36 @@ footer {
     border-radius: 12px;
     cursor: pointer;
 }
+
+/* Search */
+
+.field-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 800px;
+    margin: auto;
+    padding: 4px 12px 4px 12px;
+    border-radius: 40px;
+
+    border: 1px solid #EAE2B7;
+}
+
+.field-search input {
+    background-color:  #003049;
+    color: #EAE2B7;
+    border: 0;
+    font-size: 16px;
+    padding: 8px;
+} 
+
+.field-search img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Favorites */
 
 .card-favorite {
     position: relative;
