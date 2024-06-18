@@ -16,44 +16,44 @@
             <h1>MovieIt</h1>
         </div>
         
-        <form action="">
+        <form onsubmit="register(event)">
             <div class="form-field">
-                <label for="">Username</label>
+                <label for="username">Username</label>
 
                 <div class="input">
                     <image src="assets/user.svg" alt="ícone do campo de usuário" />
                     
-                    <input type="text" placeholder="Username">
+                    <input required id="username" name="username" type="text" placeholder="Username">
                 </div>
             </div>
 
             <div class="form-field">
-                <label for="">E-mail</label>
+                <label for="email">E-mail</label>
 
                 <div class="input">
                     <image src="assets/email.svg" alt="ícone do campo de email" />
                     
-                    <input type="text" placeholder="E-mail">
+                    <input required id="email" name="email" type="email" placeholder="E-mail">
                 </div>
             </div>
 
             <div class="form-field">
-                <label for="">Senha</label>
+                <label for="password">Senha</label>
 
                 <div class="input">
                     <image src="assets/user.svg" alt="ícone do campo de senha" />
                     
-                    <input type="text" placeholder="Senha">
+                    <input required id="password" name="password" type="password" placeholder="Senha">
                 </div>
             </div>
 
             <div class="form-field">
-                <label for="">Confirmar senha</label>
+                <label for="confirmPassword">Confirmar senha</label>
 
                 <div class="input">
                     <image src="assets/password.svg" alt="ícone do campo de confirmar senha" />
                     
-                    <input type="password" placeholder="Senha">
+                    <input required id="confirmPassword" name="confirmPassword" type="password" placeholder="Senha">
                     
                     <!-- <image src="assets/eye.svg" alt="ícone do campo de senha" /> -->
                 </div>
@@ -64,5 +64,7 @@
 
         <p>Já possui cadastro? <a href="login.html">Acesse sua conta!</a></p>
     </main>
+
+    <script src="js/register.js"></script>
 </body>
 </html>

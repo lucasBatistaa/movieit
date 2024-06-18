@@ -11,12 +11,12 @@ let FAVORITES_MOVIES = [
 const MY_COMMENTS = [
     {
         id: 'tt0241527',
-
+        text: 'Uau, uma obra fantatisca e genial. Oda Genio!'
     }
 ]
 
 // Criar card do filme
-async function createCardMovie(movie) {
+function createCardMovie(movie) {
     const { Poster, Title, Type, Year, imdbID } = movie
 
     console.log()
@@ -55,7 +55,8 @@ async function createCardMovie(movie) {
     return movieElement
 }
 
-async function createCardFavorite(poster, title, imdbID) {
+// Criar card dos favoritos
+function createCardFavorite(poster, title, imdbID) {
 
     const movieElement = document.createElement('div')
     movieElement.classList.add('card-favorite')
@@ -88,8 +89,42 @@ async function createCardFavorite(poster, title, imdbID) {
     return movieElement
 }
 
+// Criar card de comentário
+function createCardComment(title, year, poster, imdbID, text) {
+
+    const commentElement = document.createElement('div') 
+    commentElement.classList.add('comment')
+    commentElement.setAttribute('movie-ID', imdbID)
+
+    commentElement.innerHTML = `  
+        <image src="${poster}" alt="banner do filme" />
+
+        <div class="comment-content">
+            <div class="comment-header">
+                <h2>${title}</h2><span>(${year})</span>
+
+                <div class="comment-buttons-actions">
+                    <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
+
+                    <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
+                </div>
+            </div>
+
+            <div class="comment-avaliation">
+                <image src="assets/star.svg" alt="Ícone de estrela das avaliações" />
+
+                <p>8.8</p>
+            </div>
+
+            <p>${text}</p>
+        </div>
+    `     
+
+    return commentElement
+}
+
 // Carregar filmes em destaque
-async function featuredMovies() {
+async function loadFeaturedMovies() {
     const highlightsMovies = document.querySelector('#highlights')
 
     try {
@@ -115,7 +150,7 @@ async function featuredMovies() {
 }
 
 // Carregar filmes favoritos
-async function favoritedMovies() {
+async function loadFavoritedMovies() {
     const favoritesMovies = document.getElementById('favorites-movies')
 
     try {
@@ -127,6 +162,27 @@ async function favoritedMovies() {
             const cardFavorite = await createCardFavorite(data.Poster, data.Title, movieID)
             favoritesMovies.appendChild(cardFavorite)
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// Carregar comentários dos filmes (Usuário atual)
+async function loadMoviesComments() {
+    const moviesComments = document.getElementById('movies-comments')
+
+    
+    try {
+        for (const comment of MY_COMMENTS) {
+            const response = await fetch(`https://www.omdbapi.com/?i=${comment.id}&type=movie&apikey=${API_TOKEN}`)
+            const data = await response.json()
+
+            console.log(data)
+            const cardComment = await createCardComment(data.Title, data.Year, data.Poster, comment.id, comment.text)
+            
+            console.log(cardComment)
+            moviesComments.appendChild(cardComment)
+        }   
     } catch (error) {
         console.log(error)
     }
@@ -242,6 +298,11 @@ function removeToFavorites() {
 
     FAVORITES_MOVIES = FAVORITES_MOVIES.filter(id => id !== movieID)
 }
+
+// Adicionar comentário 
+function addComment() {
+
+}
  
 // Adicionar EventListener no botão de pesquisa
 const searchButton = document.getElementById('searchButton')
@@ -249,7 +310,9 @@ searchButton.addEventListener('click', searchMovie)
 
 // Carregar informações iniciais
 async function loadData() {
-    featuredMovies()
+    loadFeaturedMovies()
 
-    favoritedMovies()
+    loadFavoritedMovies()
+
+    loadMoviesComments()
 }
