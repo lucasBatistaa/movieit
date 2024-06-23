@@ -15,16 +15,7 @@ main {
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
     width: 380px;
-}
-
-label {
-    font-size: 20px;
-    color: #EAE2B7;
-    font-weight: bold;
 }
 
 input {

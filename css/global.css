@@ -48,6 +48,26 @@ a {
     text-decoration: none;
 }
 
+label {
+    font-size: 20px;
+    color: #EAE2B7;
+    font-weight: bold;
+}
+
+input:placeholder {
+    color: #EAE2B7;
+}
+
 input:focus {
     outline: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

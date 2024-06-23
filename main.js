@@ -94,26 +94,20 @@ function createCardComment(title, year, poster, imdbID, text) {
 
     const commentElement = document.createElement('div') 
     commentElement.classList.add('comment')
-    commentElement.setAttribute('movie-ID', imdbID)
+    commentElement.setAttribute('movie-id', imdbID)
 
     commentElement.innerHTML = `  
         <image src="${poster}" alt="banner do filme" />
 
         <div class="comment-content">
             <div class="comment-header">
-                <h2>${title}</h2><span>(${year})</span>
+                <h2>${title}</h2><span>${year}</span>
 
                 <div class="comment-buttons-actions">
                     <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
 
                     <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
                 </div>
-            </div>
-
-            <div class="comment-avaliation">
-                <image src="assets/star.svg" alt="Ícone de estrela das avaliações" />
-
-                <p>8.8</p>
             </div>
 
             <p>${text}</p>
@@ -171,16 +165,12 @@ async function loadFavoritedMovies() {
 async function loadMoviesComments() {
     const moviesComments = document.getElementById('movies-comments')
 
-    
     try {
         for (const comment of MY_COMMENTS) {
             const response = await fetch(`https://www.omdbapi.com/?i=${comment.id}&type=movie&apikey=${API_TOKEN}`)
             const data = await response.json()
 
-            console.log(data)
             const cardComment = await createCardComment(data.Title, data.Year, data.Poster, comment.id, comment.text)
-            
-            console.log(cardComment)
             moviesComments.appendChild(cardComment)
         }   
     } catch (error) {
@@ -238,7 +228,9 @@ async function openModal(id) {
     const data = await dataMovieWithID(id)
 
     const modal = document.getElementById("modal-movie-data")
-
+    const modalContent = document.querySelector('.modal-movie-content') 
+    const formComment = document.getElementById('form-comment')
+    
     modal.setAttribute('data-movie-id', id);
 
     document.getElementById("modal-movie-poster").src  = data.Poster
@@ -262,6 +254,8 @@ async function openModal(id) {
         buttonFavorite.onclick = addToFavorites
     }
 
+    modalContent.style.display = 'flex'
+    formComment.style.display = 'none'
     modal.style.display = 'flex'
 }
 
@@ -299,9 +293,50 @@ function removeToFavorites() {
     FAVORITES_MOVIES = FAVORITES_MOVIES.filter(id => id !== movieID)
 }
 
-// Adicionar comentário 
-function addComment() {
+// Mostrar formulário de comentários
+function showFormComment() {
+    const modalContent = document.querySelector('.modal-movie-content') 
+    const formComment = document.getElementById('form-comment')
 
+    modalContent.style.display = 'none'
+    formComment.style.display = 'flex'
+}
+
+// Fechar formulário de comentários
+function closeFormComment(event) {
+    event.preventDefault()
+    const modalContent = document.querySelector('.modal-movie-content') 
+    const formComment = document.getElementById('form-comment')
+
+    modalContent.style.display = 'flex'
+    formComment.style.display = 'none'
+}
+
+// Adicionar comentário 
+async function addComment(event) {
+    event.preventDefault()
+
+    const form = document.getElementById('form-comment')
+    const formData = new FormData(form)
+    const { comment } = Object.fromEntries(formData)
+
+    if (comment) {
+        const movieID = document.getElementById('modal-movie-data').getAttribute('data-movie-id')
+        const moviesComments = document.getElementById('movies-comments')
+        
+        const title = document.getElementById("modal-movie-title").textContent
+        const year = document.getElementById("modal-movie-year").textContent
+        const poster = document.getElementById("modal-movie-poster").src
+
+        console.log(title, year, poster)
+
+        const cardComment = await createCardComment(title, year, poster, movieID, comment)
+        moviesComments.appendChild(cardComment)
+        MY_COMMENTS.push({
+            id: movieID,
+            text: comment
+        }) 
+    }
 }
  
 // Adicionar EventListener no botão de pesquisa

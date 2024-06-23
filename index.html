@@ -88,42 +88,55 @@
     </footer>
 
     <div id="modal-movie-data" class="modal-movie" onclick="closeModal(event.target.id)">
-        <div class="modal-movie-content">
-            <image id="modal-movie-poster" src="assets/Movie.png" alt="banner do filme" />
+        <div class="modal-movie-container">
+            <div class="modal-movie-content">
+                <image id="modal-movie-poster" src="assets/Movie.png" alt="banner do filme" />
 
-            <div class="modal-movie-informations">
-                <div class="modal-movie-data">
-                    <div>
-                        <h1 id="modal-movie-title"></h1><span id="modal-movie-year"></span>
-                    </div>
+                <div class="modal-movie-informations">
+                    <div class="modal-movie-data">
+                        <div>
+                            <h1 id="modal-movie-title"></h1><span id="modal-movie-year"></span>
+                        </div>
+                        
+                        <div>
+                            <image src="assets/star.svg" alt="ícone de estrela" />
+                            <p id="modal-movie-rating"></p>
+                        </div>
+                        
+                        <div>
+                            <image src="assets/clock.svg" alt="ícone de relógio" />
+                            <p id="modal-movie-duration"></p>
+                        </div>
                     
-                    <div>
-                        <image src="assets/star.svg" alt="ícone de estrela" />
-                        <p id="modal-movie-rating"></p>
-                    </div>
+                        <div>
+                            <strong>Atores:</strong><p id="modal-movie-actors"></p>
+                        </div>
                     
-                    <div>
-                        <image src="assets/clock.svg" alt="ícone de relógio" />
-                        <p id="modal-movie-duration"></p>
+                        <div>
+                            <strong>Direção:</strong><p id="modal-movie-directors"></p>
+                        </div>
+                        
+                        <p id="modal-movie-resume"></p>
                     </div>
                 
-                    <div>
-                        <strong>Atores:</strong><p id="modal-movie-actors"></p>
+                    <div class="modal-movie-buttons">
+                        <button id="modal-button-favorite">Favoritar</button>
+                        
+                        <button onclick="showFormComment()">Comentar</button>
                     </div>
-                
-                    <div>
-                        <strong>Direção:</strong><p id="modal-movie-directors"></p>
-                    </div>
-                    
-                    <p id="modal-movie-resume"></p>
-                </div>
-            
-                <div class="modal-movie-buttons">
-                    <button id="modal-button-favorite">Favoritar</button>
-                    
-                    <button onclick="addComment()">Comentar</button>
                 </div>
             </div>
+
+            <form id="form-comment">
+                <Button class="close-button" type="menu" onclick="closeFormComment(event)">X</Button>
+                <div class="form-field">
+                    <label for="comment">Comentário</label>
+                    <!-- <input required id="text" name="text" type="text" placeholder="Digite aqui seu comentário..."> -->
+                    <textarea id="comment" name="comment" maxlength="100"></textarea>
+                </div>
+
+                <button type="submit" onclick="addComment(event)">Enviar</button>
+            </form>
         </div>
     </div>
 
