@@ -55,7 +55,7 @@ function createCardMovie(movie) {
 }
 
 // Criar card dos favoritos
-function createCardFavorite(poster, title, imdbID) {
+function createCardFavorite(poster, title, year, imdbID) {
 
     const movieElement = document.createElement('div')
     movieElement.classList.add('card-favorite')
@@ -66,7 +66,7 @@ function createCardFavorite(poster, title, imdbID) {
                     
         <div class="card-favorite-content">
             <div>
-                <h2>${title}</h2><span>(1999)</span>
+                <h2>${title}</h2><span>(${year})</span>
             </div>
             
             <p>Sci-fi, action</p>
@@ -155,7 +155,7 @@ async function loadFavoritedMovies() {
             const response = await fetch(`https://www.omdbapi.com/?i=${movieID}&type=movie&apikey=${API_TOKEN}`) 
             const data = await response.json()
     
-            const cardFavorite = await createCardFavorite(data.Poster, data.Title, movieID)
+            const cardFavorite = await createCardFavorite(data.Poster, data.Title, data.Year, movieID)
             favoritesMovies.appendChild(cardFavorite)
         }
     } catch (error) {
@@ -184,6 +184,7 @@ async function loadMoviesComments() {
 async function searchMovie() {
     const resultOfSearch = document.getElementById('resultOfSearch')
     const searchInput = document.getElementById('searchInput').value
+    console.log('VALOR DA PESQUISA: ', searchInput)
     
     if (searchInput) {
         try {
@@ -367,9 +368,10 @@ async function addComment(event) {
         
         const title = document.getElementById("modal-movie-title").textContent
         const year = document.getElementById("modal-movie-year").textContent
+        const yearStyled = year.replace(/[()]/g, '');
         const poster = document.getElementById("modal-movie-poster").src
 
-        const cardComment = await createCardComment(title, year, poster, movieID, comment)
+        const cardComment = await createCardComment(title, yearStyled, poster, movieID, comment)
         moviesComments.appendChild(cardComment)
         MY_COMMENTS.push({
             id: movieID,
@@ -423,10 +425,43 @@ function removeComment() {
 
     closeModal('modal-delete-comment')
 }
+
+// Abrir menu dropdown
+function openDropdownMenu() {
+    const menuIcon = document.getElementById('menus')
+
+    menuIcon.style.display = 'flex'
+}
+
+// Fechar menu dropdown
+function closeDropdownMenu() {
+    const menuIcon = document.getElementById('menus')
+
+    menuIcon.style.display = 'none'
+}
  
 // Adicionar EventListener no botão de pesquisa
 const searchButton = document.getElementById('searchButton')
 searchButton.addEventListener('click', searchMovie)
+
+// Adicionar EventListener no input de pesquisa
+const input = document.getElementById('searchInput');
+input.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        searchMovie(); 
+    }
+});
+
+// Mostrar/Esconder menu dropdown de acordo com tamanho da tela      
+window.addEventListener('resize', function() {
+    let width = window.innerWidth
+
+    if (width >= 750) {
+        document.getElementById('menus').style.display = 'flex'
+    } else {
+        document.getElementById('menus').style.display = 'none'
+    }
+})
 
 // Carregar informações iniciais
 async function loadData() {

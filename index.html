@@ -22,15 +22,17 @@
             <h1>MovieIt</h1>
         </div>
 
-        <nav>
+        <nav id="menus">
             <ul>
-                <li><a href="#init">Início</a></li>
-                <li><a href="#search">Pesquisar</a></li>
-                <li><a href="#favorites">Favoritos</a></li>
-                <li><a href="#comments">Comentários</a></li>
+                <li><a href="#init" onclick="closeDropdownMenu()">Início</a></li>
+                <li><a href="#search" onclick="closeDropdownMenu()">Pesquisar</a></li>
+                <li><a href="#favorites" onclick="closeDropdownMenu()">Favoritos</a></li>
+                <li><a href="#comments" onclick="closeDropdownMenu()">Comentários</a></li>
                 <li><a href="login.html"><image src="assets/user.svg" class="user-image" alt="ícone de usuário"/></a></li>
             </ul>
         </nav>
+
+        <image id="icon-menu" src="assets/menu-drop.svg" alt="ícone de menu" onclick="openDropdownMenu()" />
     </header>
 
     <main >

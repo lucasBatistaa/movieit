@@ -89,6 +89,14 @@ footer {
     gap: 4px;
 }
 
+#icon-menu {
+    display: none;
+    height: 24px;
+    width: 24px;
+}
+
+/* Referencias */
+
 .background-color-blue {
     background-color: #003049;
     color: #EAE2B7;
@@ -199,7 +207,8 @@ footer {
 
 .field-search img {
     width: 24px;
-    height: 24px;
+    height: 24px;   
+    cursor: pointer;
 }
 
 /* Favorites */
@@ -309,6 +318,7 @@ footer {
 .comment-buttons-actions img:hover {
     opacity: 0.8;
 }
+
 /* Modal */
 
 .modal {
@@ -334,7 +344,6 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 24px;
     border-radius: 20px;
 
     color: #EAE2B7;
@@ -347,7 +356,6 @@ footer {
 
     width: 100%;
 }
-
 
 .modal-form-field {
     display: flex; 
@@ -468,12 +476,61 @@ footer {
 
 #modal-edit-comment .modal-form {
     margin: 20px;
+    padding: 24px;
 }
 
 /* Responsividade */
 
 @media (max-width: 750px) {
+
+    #icon-menu {
+        display: flex;
+        cursor: pointer;
+    }
+
     nav {
+        position: fixed;
+
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        z-index: 10;
+
+        background-color: #003049;
+        overflow: hidden; 
+    }
+
+    nav ul, nav li, nav a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        height: 40%;
+    }
+
+    nav li {
+        height: 25%;
+    }
+
+    nav a {
+        font-size: 24px;
+    }
+
+    nav li:hover {
+        opacity: .7;
+    }
+
+    nav li:last-child {
         display: none;
     }
 
