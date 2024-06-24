@@ -87,7 +87,7 @@
         <p>@ Todos os direitos reservados - Lucas Batista - 2024</p>
     </footer>
 
-    <div id="modal-movie-data" class="modal-movie" onclick="closeModal(event.target.id)">
+    <div id="modal-movie-data" class="modal" onclick="closeModal(event.target.id)">
         <div class="modal-movie-container">
             <div class="modal-movie-content">
                 <image id="modal-movie-poster" src="assets/Movie.png" alt="banner do filme" />
@@ -127,15 +127,49 @@
                 </div>
             </div>
 
-            <form id="form-comment">
-                <Button class="close-button" type="menu" onclick="closeFormComment(event)">X</Button>
-                <div class="form-field">
-                    <label for="comment">Comentário</label>
-                    <!-- <input required id="text" name="text" type="text" placeholder="Digite aqui seu comentário..."> -->
-                    <textarea id="comment" name="comment" maxlength="100"></textarea>
+            <div id="modal-form-add" class="modal-form">
+                <div class="modal-form-header">
+                    <h2>Adicionar comentário</h2>
+                    <button class="close-button" type="menu" onclick="closeFormComment(event)">X</button>
                 </div>
+                
+                <form id="form-comment">
+                    <div class="modal-form-field">
+                        <label for="comment-input">Comentário</label>
+                        <textarea id="comment-input" name="comment" placeholder="Digite aqui seu comentário..." maxlength="100"></textarea>
+                    </div>
+    
+                    <button type="submit" onclick="addComment(event)">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                <button type="submit" onclick="addComment(event)">Enviar</button>
+    <div id="modal-delete-comment" class="modal" onclick="closeModal(event.target.id)">
+        <div class="modal-delete-container">
+            <h2>Deseja excluir o comentário?</h2>
+            
+            <div class="modal-delete-buttons">
+                <button onclick="closeModal('modal-delete-comment')">Cancelar</button>
+                <button onclick="removeComment()">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-edit-comment" class="modal" onclick="closeModal(event.target.id)">
+        <div id="modal-form-edit" class="modal-form">
+             <div class="modal-form-header">
+                <h2>Editar o comentário</h2>
+                
+                <button class="close-button" type="menu" onclick="closeModal('modal-edit-comment')">X</button>
+             </div>
+            
+            <form id="form-edit-comment">
+                <div class="modal-form-field">
+                    <label for="comment-input">Comentário</label>
+                    <textarea id="comment-edit-input" name="comment" placeholder="Digite aqui seu comentário..." maxlength="100"></textarea>
+                </div>
+                <button type="submit" onclick="editComment(event)">Editar</button>
             </form>
         </div>
     </div>

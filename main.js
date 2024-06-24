@@ -8,7 +8,7 @@ let FAVORITES_MOVIES = [
     'tt1160419'
 ]
 
-const MY_COMMENTS = [
+let MY_COMMENTS = [
     {
         id: 'tt0241527',
         text: 'Uau, uma obra fantatisca e genial. Oda Genio!'
@@ -19,7 +19,6 @@ const MY_COMMENTS = [
 function createCardMovie(movie) {
     const { Poster, Title, Type, Year, imdbID } = movie
 
-    console.log()
     const movieElement = document.createElement('div')
                 
     movieElement.classList.add('movie')
@@ -60,7 +59,7 @@ function createCardFavorite(poster, title, imdbID) {
 
     const movieElement = document.createElement('div')
     movieElement.classList.add('card-favorite')
-    movieElement.setAttribute('movie-id', imdbID);
+    movieElement.setAttribute('movie-id-favorite', imdbID);
 
     movieElement.innerHTML = `
         <image src="${poster}" alt="banner do filme" />
@@ -94,23 +93,26 @@ function createCardComment(title, year, poster, imdbID, text) {
 
     const commentElement = document.createElement('div') 
     commentElement.classList.add('comment')
-    commentElement.setAttribute('movie-id', imdbID)
+    commentElement.setAttribute('movie-id-comment', imdbID)
 
     commentElement.innerHTML = `  
         <image src="${poster}" alt="banner do filme" />
 
         <div class="comment-content">
             <div class="comment-header">
-                <h2>${title}</h2><span>${year}</span>
+                <div class="comment-title">
+                    <h2>${title}</h2>
+                    <span>(${year})</span>
+                </div>
 
                 <div class="comment-buttons-actions">
-                    <image src="assets/edit.svg" alt="ícone do botão para edição do comentário" />
+                    <image id=${imdbID} src="assets/edit.svg" alt="ícone do botão para edição do comentário" onclick="openModalEditComment(event.target.id)"/>
 
-                    <image src="assets/trash.svg" alt="ícone do botão para excluir o comentário" />
+                    <image id=${imdbID} src="assets/trash.svg" alt="ícone do botão para excluir o comentário" onclick="openModalDeleteComment(event.target.id)"/>
                 </div>
             </div>
 
-            <p>${text}</p>
+            <p id="comment-text">${text}</p>
         </div>
     `     
 
@@ -223,13 +225,13 @@ async function dataMovieWithID(idMovie) {
     }
 }
 
-// Abrir Modal
+// Abrir Modal - Movie
 async function openModal(id) {
     const data = await dataMovieWithID(id)
 
     const modal = document.getElementById("modal-movie-data")
     const modalContent = document.querySelector('.modal-movie-content') 
-    const formComment = document.getElementById('form-comment')
+    const formComment = document.getElementById('modal-form-add')
     
     modal.setAttribute('data-movie-id', id);
 
@@ -242,29 +244,62 @@ async function openModal(id) {
     document.getElementById("modal-movie-directors").innerText = data.Director
     document.getElementById("modal-movie-resume").innerText = data.Plot
 
-    const buttonFavorite = document.getElementById("modal-button-favorite")
-
-    if (FAVORITES_MOVIES.includes(id)) {
-        
-        buttonFavorite.innerText = 'Desfavoritar'
-        buttonFavorite.onclick = removeToFavorites
-    } else {
-        
-        buttonFavorite.innerText = 'Favoritar'
-        buttonFavorite.onclick = addToFavorites
-    }
-
+    changeFunctionOnFavoriteButton(id)
+    
+    modal.style.display = 'flex'
     modalContent.style.display = 'flex'
     formComment.style.display = 'none'
+
+    // document.body.classList.add('modal-open');
+}
+
+// Abrir Modal - Delete Comment
+function openModalDeleteComment(id) {
+    const modal = document.getElementById('modal-delete-comment')
+    
+    modal.setAttribute('movie-id', id)
     modal.style.display = 'flex'
 }
 
+// Abri Modal - Edit Comment
+function openModalEditComment(movieID) {
+    const modal = document.getElementById('modal-edit-comment')
+    const formEditComment = document.getElementById('modal-form-edit')
+
+    const cardComment = document.querySelector(`[movie-id-comment="${movieID}"]`)
+    const commentText = cardComment.querySelector('#comment-text').textContent
+    const editInput = document.getElementById('comment-edit-input')
+    
+    editInput.value = commentText
+    
+    modal.setAttribute('movie-id', movieID)
+    modal.style.display = 'flex'
+    formEditComment.style.display = 'flex'
+
+    console.log(formEditComment)
+}
+
 // Fechar Modal
-async function closeModal(id) {
-    if (id === "modal-movie-data") {
+function closeModal(id) {
+    if (id === 'modal-movie-data' || id === 'modal-delete-comment' || id === "modal-edit-comment") {
         const modal = document.getElementById(id)
 
         modal.style.display = 'none'
+        // document.body.classList.remove('modal-open');
+    }
+}
+
+// Mudar função do botão para favoritar ou desfavoritar
+function changeFunctionOnFavoriteButton(id) {
+    const buttonFavorite = document.getElementById("modal-button-favorite")
+
+    if (FAVORITES_MOVIES.includes(id)) { 
+        buttonFavorite.innerText = 'Desfavoritar'
+        buttonFavorite.onclick = removeToFavorites
+
+    } else {  
+        buttonFavorite.innerText = 'Favoritar'
+        buttonFavorite.onclick = addToFavorites
     }
 }
 
@@ -280,23 +315,27 @@ async function addToFavorites() {
     
     favoritesMovies.appendChild(cardFavorite)
     FAVORITES_MOVIES.push(movieID)
+
+    changeFunctionOnFavoriteButton(movieID)
 }
 
 // Remover filme dos favoritos
 function removeToFavorites() {
-
     const movieID = document.getElementById('modal-movie-data').getAttribute('data-movie-id')
-    const cardMovieFavorite = document.querySelector(`[movie-id="${movieID}"]`)
+    const cardMovieFavorite = document.querySelector(`[movie-id-favorite="${movieID}"]`)
 
     cardMovieFavorite.remove()
 
     FAVORITES_MOVIES = FAVORITES_MOVIES.filter(id => id !== movieID)
+
+    changeFunctionOnFavoriteButton(movieID)
 }
 
 // Mostrar formulário de comentários
 function showFormComment() {
     const modalContent = document.querySelector('.modal-movie-content') 
-    const formComment = document.getElementById('form-comment')
+    const formComment = document.getElementById('modal-form-add')
+    const commentInput = document.getElementById('comment-input').value = ''
 
     modalContent.style.display = 'none'
     formComment.style.display = 'flex'
@@ -305,8 +344,9 @@ function showFormComment() {
 // Fechar formulário de comentários
 function closeFormComment(event) {
     event.preventDefault()
+
     const modalContent = document.querySelector('.modal-movie-content') 
-    const formComment = document.getElementById('form-comment')
+    const formComment = document.getElementById('modal-form-add')
 
     modalContent.style.display = 'flex'
     formComment.style.display = 'none'
@@ -317,6 +357,7 @@ async function addComment(event) {
     event.preventDefault()
 
     const form = document.getElementById('form-comment')
+    const commentInput = document.getElementById('comment-input')
     const formData = new FormData(form)
     const { comment } = Object.fromEntries(formData)
 
@@ -328,15 +369,59 @@ async function addComment(event) {
         const year = document.getElementById("modal-movie-year").textContent
         const poster = document.getElementById("modal-movie-poster").src
 
-        console.log(title, year, poster)
-
         const cardComment = await createCardComment(title, year, poster, movieID, comment)
         moviesComments.appendChild(cardComment)
         MY_COMMENTS.push({
             id: movieID,
             text: comment
-        }) 
+        })
+        
+        alert(`Comentário para o filme "${title}" realizado!`)
+
+        closeFormComment(event)
+        commentInput.value = ''
+    } else {
+        alert('Digite algo no comentário!')
+    } 
+}
+
+// Editar comentário
+function editComment(event) {
+    event.preventDefault()
+    
+    const form = document.getElementById('form-edit-comment')
+    const formData = new FormData(form)
+    const { comment } = Object.fromEntries(formData)
+
+    const movieID = document.getElementById('modal-edit-comment').getAttribute('movie-id')
+    const cardComment = document.querySelector(`[movie-id-comment="${movieID}"]`)
+    const commentText = cardComment.querySelector('#comment-text')
+    
+    if (comment) {
+        if (comment !== commentText.textContent) {
+            commentText.innerText = comment
+    
+            alert('Alteração realizada com sucesso!')
+        } else {
+            alert('Nenhuma alteração realizada!')
+        }
+
+        closeModal('modal-edit-comment')
+    } else {
+        alert('Comentário vazio, digite um texto!')
     }
+}
+
+// Remover comentário
+function removeComment() {
+    const movieID = document.getElementById('modal-delete-comment').getAttribute('movie-id')
+    const cardComment = document.querySelector(`[movie-id-comment="${movieID}"]`)
+
+    cardComment.remove()
+
+    MY_COMMENTS = MY_COMMENTS.filter(comment => comment.id !== movieID)
+
+    closeModal('modal-delete-comment')
 }
  
 // Adicionar EventListener no botão de pesquisa
