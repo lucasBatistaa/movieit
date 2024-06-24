@@ -13,7 +13,7 @@ const login = (event) => {
 
     // VALIDAR LOGIN
     if (user.username === 'admin' & user.password === '123') {
-        window.location.href = 'index.html'
+        window.location.href = '../index.html'
 
     } else {
         alert('Username e/ou senha incorreto(s)!')

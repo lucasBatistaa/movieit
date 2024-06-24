@@ -184,7 +184,6 @@ async function loadMoviesComments() {
 async function searchMovie() {
     const resultOfSearch = document.getElementById('resultOfSearch')
     const searchInput = document.getElementById('searchInput').value
-    console.log('VALOR DA PESQUISA: ', searchInput)
     
     if (searchInput) {
         try {
@@ -276,8 +275,6 @@ function openModalEditComment(movieID) {
     modal.setAttribute('movie-id', movieID)
     modal.style.display = 'flex'
     formEditComment.style.display = 'flex'
-
-    console.log(formEditComment)
 }
 
 // Fechar Modal
@@ -286,7 +283,6 @@ function closeModal(id) {
         const modal = document.getElementById(id)
 
         modal.style.display = 'none'
-        // document.body.classList.remove('modal-open');
     }
 }
 
@@ -309,10 +305,12 @@ async function addToFavorites() {
     const movieID = document.getElementById('modal-movie-data').getAttribute('data-movie-id')
 
     const favoritesMovies = document.getElementById('favorites-movies')
-    const poster = document.getElementById("modal-movie-poster")
-    const title = document.getElementById("modal-movie-title")
+    const poster = document.getElementById("modal-movie-poster").src
+    const title = document.getElementById("modal-movie-title").textContent
+    const year = document.getElementById("modal-movie-year").textContent
+    const yearStyled = year.replace(/[()]/g, '');
 
-    const cardFavorite = await createCardFavorite(poster.src, title.textContent, movieID)
+    const cardFavorite = await createCardFavorite(poster, title, yearStyled, movieID)
     
     favoritesMovies.appendChild(cardFavorite)
     FAVORITES_MOVIES.push(movieID)
@@ -435,9 +433,13 @@ function openDropdownMenu() {
 
 // Fechar menu dropdown
 function closeDropdownMenu() {
-    const menuIcon = document.getElementById('menus')
+    let width = window.innerWidth
 
-    menuIcon.style.display = 'none'
+    if (width < 750) {
+        const menuIcon = document.getElementById('menus')
+
+        menuIcon.style.display = 'none'
+    } 
 }
  
 // Adicionar EventListener no botão de pesquisa

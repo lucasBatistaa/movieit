@@ -4,12 +4,10 @@ const register = (event) => {
     const formData = new FormData(event.target)
     const user = Object.fromEntries(formData)
 
-    console.log(user)
-
     if (user.email !== 'admin@gmail.com') {
         if (user.username !== 'admin') {
             if (user.password === user.confirmPassword) {
-                window.location.href = 'index.html'
+                window.location.href = '../index.html'
             } else {
                 alert('Senhas não coincidem!')
             }
